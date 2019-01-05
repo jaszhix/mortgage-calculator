@@ -1,0 +1,14 @@
+{
+  "devURL": "http://0.0.0.0:8032",
+  "prodURL": "http://example.com",
+  "proxy": [
+    {
+      "path": "/api/*",
+      "target": "http://0.0.0.0:4000"
+    },
+    {
+      "path": "/oauth/*",
+      "target": "http://0.0.0.0:4000"
+    }
+  ]
+}
