@@ -1,6 +1,7 @@
 // Base Colors
 $white: #fff !default;
 $blue: #1391CE !default;
+$lightBlue: #EBF5FB !default;
 $grey: #D9D8DA !default;
 $black: #000 !default;
 
@@ -105,7 +106,7 @@ $slider-label-width: 60px !default;
   border: 2px solid $grey;
   line-height: 20px;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 4px;
   background: $slider-label-color;
   padding: 5px 10px;
   margin-left: 8px;
@@ -179,11 +180,85 @@ $slider-label-width: 60px !default;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
   max-width: 100%;
+  padding: 10px;
+  width: 100%;
 }
 
 .half-col {
   -ms-flex-preferred-size: 50%;
   flex-basis: 50%;
   max-width: 50%;
+  padding: 10px;
+  width: 100%;
 }
 
+.full-col > div, .half-col > div {
+  padding: 8px 8px 8px 0px;
+}
+
+.sliders {
+  padding: 0px 8px 0px 8px;
+}
+
+.inputs {
+  padding: 20px;
+  background: $white;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 1px 1px 10px $grey;
+}
+
+input[type='number'] {
+  width: 100% !important;
+  display: inline-block;
+  position: relative;
+  width: $slider-label-width;
+  color: $black;
+  border: 2px solid $grey;
+  line-height: 20px;
+  border-radius: 4px;
+  background: $slider-label-color;
+  padding: 5px 10px;
+}
+
+.button-container {
+  text-align: center;
+  padding: 20px;
+}
+
+button {
+  background: $blue;
+  color: $white;
+  border: 0px;
+  padding: 12px 18px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-weight: bold;
+  outline-color: rgba(0, 0, 0, 0);
+}
+
+button:active {
+  background: darken($blue, 5%);
+}
+
+.results {
+  padding: 20px;
+  background: $lightBlue;
+  position: relative;
+  top: -155px;
+  z-index: -1;
+  transition: top 0.5s;
+}
+
+.results > div > div {
+  &:nth-child(1) {
+    text-align: left;
+  }
+  &:nth-child(2) {
+    text-align: right;
+  }
+}
+
+.results > div:not(:nth-child(4)) {
+  border-bottom: 1px solid $grey;
+}

@@ -6,6 +6,18 @@ Number.prototype.format = function(n, x) {
   return `$${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
 };
 
+class Button {
+  constructor({parentElement, onClick}) {
+    let button = document.createElement('button');
+    button.innerText = 'Calculate';
+
+    parentElement.appendChild(button);
+
+    if (typeof onClick !== 'function') return;
+
+    button.addEventListener('click', (...args) => onClick(...args));
+  }
+}
 
 class Result {
   constructor({parentElement, text = '', value = 0}) {
@@ -140,8 +152,10 @@ class RangeSlider {
 }
 
 const sliderContainer = document.querySelector('.sliders');
+const inputContainer = document.querySelector('.inputs');
 const inputRow1 = document.getElementById('inputs__row1');
 const inputRow2 = document.getElementById('inputs__row2');
+const buttonContainer = document.querySelector('.button-container');
 const resultsContainer = document.querySelector('.results');
 
 const sliderClass = 'slider';
@@ -154,6 +168,8 @@ class MortgageCalculator {
     this.loanAmount = 0;
     this.annualTax = 0;
     this.annualInsurance = 0;
+
+    this.initialClick = false;
 
     this.inputs = [
       new RangeSlider({
@@ -195,6 +211,10 @@ class MortgageCalculator {
         className: 'half-col',
         id: 'annualInsurance',
         onChange: (...args) => this.onInputChange(...args)
+      }),
+      new Button({
+        parentElement: buttonContainer,
+        onClick: () => this.onClick()
       })
     ];
 
@@ -224,7 +244,14 @@ class MortgageCalculator {
     this.doCalculation();
   }
 
+  onClick() {
+    this.initialClick = true;
+    resultsContainer.style.top = '0px';
+  }
+
   doCalculation() {
+    if (!this.initialClick) return;
+
     let {interestRate, loanAmount, yearsOfMortgage, annualTax, annualInsurance} = this;
     let {tax, insurance, totalMonthlyPayment, principleAndInterests} = calculator(
       interestRate,
