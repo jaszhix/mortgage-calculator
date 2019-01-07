@@ -11,7 +11,7 @@ const map = {
 
 Number.prototype.format = function(n, x) {
   let re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-  return `$ ${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
+  return `$${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
 };
 
 class Button {
@@ -154,6 +154,8 @@ class RangeSlider {
         color-stop(${progress}, #1391CE),
         color-stop(${progress}, #D9D8DA )
       )`;
+
+    this.input.focus();
 
     this.value = int;
 

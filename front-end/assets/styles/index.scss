@@ -42,7 +42,7 @@ $slider-label-width: 60px !default;
 .slider {
   width: $slider-width;
   &:not(:nth-child(1)) {
-    margin: 60px 0 0 0%;
+    margin: 25px 0 0 0%;
   }
 
 }
@@ -90,7 +90,7 @@ $slider-label-width: 60px !default;
     border-radius: 50%;
     background: $slider-handle-color;
     cursor: pointer;
-    transition: background .15s ease-in-out;
+    transition: background 0.15s ease-in-out;
 
     &:hover {
       background: $slider-handle-color-hover;
@@ -189,10 +189,10 @@ $slider-label-width: 60px !default;
   width: 100%;
 }
 
-.three-quarters-col {
-  -ms-flex-preferred-size: 75%;
-  flex-basis: 75%;
-  max-width: 75%;
+.two-thirds-col {
+  -ms-flex-preferred-size: 66%;
+  flex-basis: 66%;
+  max-width: 66%;
   padding: 10px;
   width: 100%;
 }
@@ -205,10 +205,10 @@ $slider-label-width: 60px !default;
   width: 100%;
 }
 
-.quarter-col {
-  -ms-flex-preferred-size: 25%;
-  flex-basis: 25%;
-  max-width: 25%;
+.one-third-col {
+  -ms-flex-preferred-size: 33%;
+  flex-basis: 33%;
+  max-width: 3%;
   padding: 10px;
   width: 100%;
 }
@@ -224,8 +224,8 @@ $slider-label-width: 60px !default;
 .inputs {
   padding: 20px;
   background: $white;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   box-shadow: 1px 1px 10px $grey;
 }
 
@@ -240,6 +240,15 @@ input[type='number'] {
   border-radius: 4px;
   background: $slider-label-color;
   padding: 5px 10px;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: #adadad;
+  }
+}
+
+input {
+  outline: 0;
 }
 
 .button-container {
