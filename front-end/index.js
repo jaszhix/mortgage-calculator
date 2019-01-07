@@ -320,8 +320,6 @@ class MortgageCalculator {
 
     let {interestRate, loanAmount, yearsOfMortgage, annualTax, annualInsurance} = this;
 
-    resultsContainer.style.top = '-10px';
-
     let {tax, insurance, totalMonthlyPayment, principleAndInterests} = calculator(
       interestRate,
       loanAmount,
@@ -335,8 +333,8 @@ class MortgageCalculator {
     this.insurance.setValue(insurance);
     this.totalMonthlyPayment.setValue(totalMonthlyPayment);
 
-    // Uglifyjs removes console statements in production
-    console.log({interestRate, loanAmount, yearsOfMortgage, annualTax, annualInsurance, principleAndInterests, tax, insurance, totalMonthlyPayment})
+    resultsContainer.style.display = 'block';
+    setTimeout(() => resultsContainer.style.top = '-10px', 0);
   }
 }
 
