@@ -17,7 +17,8 @@ $black: #000 !default;
 body {
   background: #FEFCFE;
   font-family: sans-serif;
-  padding: 60px 20px;
+  font-size: 14px;
+  padding: 0px 20px 20px 20px;
 
   @media (min-width: 600px) {
     padding: 60px;
@@ -39,7 +40,10 @@ $slider-label-width: 60px !default;
 
 .slider {
   width: $slider-width;
-  margin: 60px 0 0 0%;
+  &:not(:nth-child(1)) {
+    margin: 60px 0 0 0%;
+  }
+
 }
 
 .slider-range {
@@ -184,10 +188,26 @@ $slider-label-width: 60px !default;
   width: 100%;
 }
 
+.three-quarters-col {
+  -ms-flex-preferred-size: 75%;
+  flex-basis: 75%;
+  max-width: 75%;
+  padding: 10px;
+  width: 100%;
+}
+
 .half-col {
   -ms-flex-preferred-size: 50%;
   flex-basis: 50%;
   max-width: 50%;
+  padding: 10px;
+  width: 100%;
+}
+
+.quarter-col {
+  -ms-flex-preferred-size: 25%;
+  flex-basis: 25%;
+  max-width: 25%;
   padding: 10px;
   width: 100%;
 }
@@ -250,15 +270,26 @@ button:active {
   transition: top 0.5s;
 }
 
-.results > div > div {
-  &:nth-child(1) {
-    text-align: left;
+.results > div {
+  div {
+    &:nth-child(1) {
+      text-align: left;
+    }
+    &:nth-child(2) {
+      text-align: right;
+    }
   }
-  &:nth-child(2) {
-    text-align: right;
+  &:not(:nth-child(4)) {
+    border-bottom: 1px solid $grey;
   }
-}
+  &:nth-child(4) {
+    div:nth-child(2) {
+      font-size: 18px;
+    }
+  }
 
-.results > div:not(:nth-child(4)) {
-  border-bottom: 1px solid $grey;
+  div:nth-child(2) {
+    font-size: 16px;
+    font-weight: bold;
+  }
 }

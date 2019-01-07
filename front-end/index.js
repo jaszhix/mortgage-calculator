@@ -3,7 +3,7 @@ import calculator from './calculator';
 
 Number.prototype.format = function(n, x) {
   let re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-  return `$${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
+  return `$ ${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
 };
 
 class Button {
@@ -25,11 +25,11 @@ class Result {
     row.classList.add('row');
 
     let leftCol = document.createElement('div');
-    leftCol.classList.add('half-col');
+    leftCol.classList.add('three-quarters-col');
     leftCol.innerText = text;
 
     let rightCol = document.createElement('div');
-    rightCol.classList.add('half-col');
+    rightCol.classList.add('quarter-col');
 
     row.appendChild(leftCol);
     row.appendChild(rightCol);
@@ -237,6 +237,11 @@ class MortgageCalculator {
       parentElement: resultsContainer,
       text: 'Total Monthly Payment',
     });
+
+    // Make sure the results container is hidden passed the bottom side of
+    // the inputs rect.
+    let {bottom} = inputContainer.getBoundingClientRect();
+    resultsContainer.style.top = `${-bottom}px`;
   }
 
   onInputChange(id, value) {
@@ -246,7 +251,7 @@ class MortgageCalculator {
 
   onClick() {
     this.initialClick = true;
-    resultsContainer.style.top = '0px';
+    resultsContainer.style.top = '-10px';
   }
 
   doCalculation() {
