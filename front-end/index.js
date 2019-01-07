@@ -78,7 +78,6 @@ class Input {
     input.addEventListener('input', (...args) => this.onValueChange(...args))
 
     this.input = input;
-
   }
 
   onValueChange(e) {
@@ -252,6 +251,28 @@ class MortgageCalculator {
     });
 
     this.orientResultContainer();
+
+    window.addEventListener('resize', () => this.handleResize());
+    this.innerWidth = 0;
+    setTimeout(() => this.handleResize(), 0);
+  }
+
+  handleResize() {
+    let {inputs, innerWidth} = this;
+    inputs = inputs.filter((input) => input instanceof Input);
+
+    if (window.innerWidth === innerWidth) {
+      return;
+    }
+
+    this.innerWidth = innerWidth = window.innerWidth;
+    for (let i = 0; i < inputs.length; i++) {
+      if (!i) continue;
+
+      let input = inputs[i].input;
+      let Class = innerWidth < 400 ? 'full-col' : 'half-col';
+      input.parentNode.setAttribute('class', Class);
+    }
   }
 
   orientResultContainer() {
@@ -259,6 +280,7 @@ class MortgageCalculator {
     // the inputs rect.
     let {bottom} = inputContainer.getBoundingClientRect();
     resultsContainer.style.top = `${-bottom}px`;
+    resultsContainer.style.display = 'none';
   }
 
   onInputChange(id, value) {
