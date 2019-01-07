@@ -1,4 +1,6 @@
 import './assets/styles/index.scss';
+import calculator from './calculator';
+
 
 class Result {
   constructor({parentElement, text = '', value = 0}) {
@@ -218,12 +220,13 @@ class MortgageCalculator {
 
   doCalculation() {
     let {interestRate, loanAmount, yearsOfMortgage, annualTax, annualInsurance} = this;
-    let principleAndInterests = (
-      (interestRate) / 12) * loanAmount / (1 - Math.pow((1 + ((interestRate / 100)/12)), -yearsOfMortgage * 12)
+    let {tax, insurance, totalMonthlyPayment, principleAndInterests} = calculator(
+      interestRate,
+      loanAmount,
+      yearsOfMortgage,
+      annualTax,
+      annualInsurance
     );
-    let tax = annualTax / 12;
-    let insurance = annualInsurance / 12;
-    let totalMonthlyPayment = principleAndInterests + tax + insurance;
 
     this.interest.setValue(principleAndInterests);
     this.tax.setValue(tax);
