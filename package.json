@@ -6,10 +6,12 @@
     "start": "NODE_ENV=development babel-node --max-old-space-size=16384 --trace-warnings webpack.server.js",
     "eslint": "NODE_ENV=development eslint .",
     "lint": "npm run eslint",
-    "build": "NODE_ENV=production webpack --config webpack.config.babel.js --progress --profile --bail"
+    "build": "NODE_ENV=production webpack --config webpack.config.babel.js --progress --profile --bail",
+    "test": "babel-node test/index.js"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "tape": "^4.9.2"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.5",
