@@ -1,6 +1,14 @@
 import './assets/styles/index.scss';
 import calculator from './calculator';
 
+const map = {
+  interestRate: ['Interest rate', '%'],
+  loanAmount: ['Loan amount', false],
+  yearsOfMortgage: ['Years of mortgage', ' years'],
+  annualTax: ['Annual tax', false],
+  annualInsurance: ['Annual insurance', false]
+};
+
 Number.prototype.format = function(n, x) {
   let re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
   return `$ ${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
@@ -25,11 +33,11 @@ class Result {
     row.classList.add('row');
 
     let leftCol = document.createElement('div');
-    leftCol.classList.add('three-quarters-col');
+    leftCol.classList.add('two-thirds-col');
     leftCol.innerText = text;
 
     let rightCol = document.createElement('div');
-    rightCol.classList.add('quarter-col');
+    rightCol.classList.add('one-third-col');
 
     row.appendChild(leftCol);
     row.appendChild(rightCol);
@@ -77,7 +85,9 @@ class Input {
     this.input.value = this.input.value.replace(/[^0-9]+/g);
     let int = parseFloat(this.input.value);
 
-    if (isNaN(int)) return;
+    if (isNaN(int)) {
+      this.value = 0;
+    }
 
     this.value = int;
 
@@ -157,6 +167,7 @@ const inputRow1 = document.getElementById('inputs__row1');
 const inputRow2 = document.getElementById('inputs__row2');
 const buttonContainer = document.querySelector('.button-container');
 const resultsContainer = document.querySelector('.results');
+const errorContainer = document.querySelector('.error');
 
 const sliderClass = 'slider';
 
@@ -238,6 +249,10 @@ class MortgageCalculator {
       text: 'Total Monthly Payment',
     });
 
+    this.orientResultContainer();
+  }
+
+  orientResultContainer() {
     // Make sure the results container is hidden passed the bottom side of
     // the inputs rect.
     let {bottom} = inputContainer.getBoundingClientRect();
@@ -251,13 +266,38 @@ class MortgageCalculator {
 
   onClick() {
     this.initialClick = true;
-    resultsContainer.style.top = '-10px';
+    this.doCalculation();
+  }
+
+  setError(message) {
+    this.initialClick = false;
+    this.orientResultContainer();
+    errorContainer.innerText = message;
   }
 
   doCalculation() {
-    if (!this.initialClick) return;
+    if (!this.initialClick) {
+      if (errorContainer.innerText.length > 0) {
+        errorContainer.innerText = '';
+      }
+      return;
+    }
+
+    let keys = ['interestRate', 'loanAmount', 'yearsOfMortgage', 'annualTax', 'annualInsurance'];
+
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      let [phrase, unit] = map[key];
+      if (!this[key]) {
+        this.setError(`${phrase} cannot be ${!unit ? '$' : ''}0${unit ? unit : ''}`);
+        return;
+      }
+    }
 
     let {interestRate, loanAmount, yearsOfMortgage, annualTax, annualInsurance} = this;
+
+    resultsContainer.style.top = '-10px';
+
     let {tax, insurance, totalMonthlyPayment, principleAndInterests} = calculator(
       interestRate,
       loanAmount,
