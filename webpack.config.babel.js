@@ -111,7 +111,7 @@ const webpackConfig = {
     filename: PROD ? '[hash].js' : 'index.js',
     chunkFilename: PROD ? '[chunkhash].js' : '[name].chunk.js',
     hashDigestLength: 32,
-    publicPath: PROD ? '/static/' : 'http://127.0.0.1:8032/'
+    publicPath: PROD ? '' : 'http://127.0.0.1:8032/'
   },
   resolve: {
     modules: ['node_modules'],
