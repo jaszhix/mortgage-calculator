@@ -40,7 +40,6 @@ $slider-label-width: 60px !default;
   &:not(:nth-child(1)) {
     margin: 25px 0 0 0%;
   }
-
 }
 
 .slider-range {
@@ -111,6 +110,7 @@ $slider-label-width: 60px !default;
   background: $slider-label-color;
   padding: 5px 10px;
   margin-left: 8px;
+  font-size: 13.33px;
 
   &:after {
     position: absolute;
