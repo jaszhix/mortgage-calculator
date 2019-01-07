@@ -1,6 +1,11 @@
 import './assets/styles/index.scss';
 import calculator from './calculator';
 
+Number.prototype.format = function(n, x) {
+  let re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+  return `$${this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,')}`;
+};
+
 
 class Result {
   constructor({parentElement, text = '', value = 0}) {
@@ -25,7 +30,7 @@ class Result {
 
   setValue(value) {
     if (isNaN(value) || !isFinite(value)) value = 0;
-    this.rightCol.innerText = `$${value.toFixed(2)}`;
+    this.rightCol.innerText = value.format(2);
   }
 }
 
@@ -40,7 +45,7 @@ class Input {
 
     let input = document.createElement('input');
     input.setAttribute('type', 'number');
-    input.setAttribute('value', '0');
+    input.setAttribute('value', '');
 
     let label = document.createElement('div');
     label.innerText = text;
@@ -57,6 +62,7 @@ class Input {
   }
 
   onValueChange(e) {
+    this.input.value = this.input.value.replace(/[^0-9]+/g);
     let int = parseFloat(this.input.value);
 
     if (isNaN(int)) return;
