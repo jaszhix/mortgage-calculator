@@ -161,6 +161,14 @@ $slider-label-width: 60px !default;
   }
 }
 
+@media only screen and (max-width: 400px) {
+  .half-col {
+    -ms-flex-preferred-size: 100% !important;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
 .row {
   box-sizing: border-box;
   display: -webkit-box;
