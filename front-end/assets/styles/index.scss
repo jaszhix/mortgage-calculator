@@ -124,6 +124,16 @@ $slider-label-width: 60px !default;
   }
 }
 
+::-moz-range-track {
+  background: rgba(0, 0, 0,0);
+  border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0;
+}
+
 // Grid helpers
 .container {
   box-sizing: border-box;

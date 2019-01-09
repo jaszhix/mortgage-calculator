@@ -314,7 +314,9 @@ class MortgageCalculator {
     this.totalMonthlyPayment.setValue(totalMonthlyPayment);
 
     resultsContainer.style.display = 'block';
-    setTimeout(() => resultsContainer.style.top = '-10px', 0);
+
+    // Defer 25ms after showing the DOM element before beginning the slide out animation.
+    setTimeout(() => resultsContainer.style.top = '-10px', 25);
   }
 }
 
